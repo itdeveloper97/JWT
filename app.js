@@ -8,6 +8,7 @@ const port = 7000;
 
 const tokenKey = "1a2b-3c4d-5e6f-7g8h";
 
+app.use(express.static(__dirname + "/static"));
 app.use(express.json());
 app.use((req, res, next) => {
   if (req.headers.authorization) {
@@ -50,10 +51,7 @@ app.get("/user", (req, res) => {
   else return res.status(401).json({ message: "Not Authorized" });
 });
 
-app.get("", (req, res) => {
-  res.status(200).type("text/plain");
-  res.send("Home");
-});
+app.get("/", (req, res) => res.render("index.html"));
 
 app.listen(port, host, () => {
   console.log(`Server listens http://${host}:${port}`);
